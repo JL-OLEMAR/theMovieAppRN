@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 import { Text, Title } from 'react-native-paper'
+import { map, size } from 'lodash'
 import CarouselSnap from 'react-native-snap-carousel'
+
+import { getGenreMovieApi } from '../api/movies'
 import { BASE_PATH_IMG } from '../utils/constants'
 
 const { width } = Dimensions.get('window')
@@ -20,14 +23,31 @@ export const Carousel = ({ data }) => {
 }
 
 const RenderItem = ({ data }) => {
-  const { title, poster_path } = data.item //eslint-disable-line
+  const [genres, setGenres] = useState(null)
+  const { title, poster_path, genre_ids } = data.item //eslint-disable-line
   const imageUrl = `${BASE_PATH_IMG}/w500${poster_path}` //eslint-disable-line
+
+  useEffect(() => {
+    getGenreMovieApi(genre_ids).then((response) => {
+      setGenres(response)
+    })
+  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={() => console.log('hola')}>
       <View style={styles.card}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
         <Title style={styles.title}>{title}</Title>
+        <View style={styles.genres}>
+          {genres && (
+            map(genres, (genre, index) => (
+              <Text key={'item-' + index} style={styles.genre}>
+                {genre}
+                {index !== size(genres) - 1 && ', '}
+              </Text>
+            ))
+          )}
+        </View>
       </View>
     </TouchableWithoutFeedback>
   )
@@ -52,5 +72,13 @@ const styles = StyleSheet.create({
   title: {
     marginHorizontal: 10,
     marginTop: 10
+  },
+  genres: {
+    flexDirection: 'row',
+    marginHorizontal: 10
+  },
+  genre: {
+    fontSize: 12,
+    color: '#8997a5'
   }
 })
