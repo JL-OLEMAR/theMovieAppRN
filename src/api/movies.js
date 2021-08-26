@@ -29,3 +29,27 @@ export const getGenreMovieApi = (idGenre) => {
       return arrayGenres
     })
 }
+
+export const getAllGenresApi = () => {
+  const url = `${API_HOST}/genre/movie/list?api_key=${API_KEY}&language=${LANG}`
+
+  return fetch(url) //eslint-disable-line
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      return result
+    })
+}
+
+export const getGenreMoviesApi = (idGenre) => {
+  const url = `${API_HOST}/discover/movie?api_key=${API_KEY}&with_genres=${idGenre}&language=${LANG}`
+
+  return fetch(url) //eslint-disable-line
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      return result
+    })
+}

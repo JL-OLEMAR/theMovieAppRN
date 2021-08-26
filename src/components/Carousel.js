@@ -10,21 +10,21 @@ import { BASE_PATH_IMG } from '../utils/constants'
 const { width } = Dimensions.get('window')
 const ITEM_WIDTH = Math.round(width * 0.7)
 
-export const Carousel = ({ data }) => {
+export const Carousel = ({ data, navigation }) => {
   return (
     <CarouselSnap
       layout='default'
       data={data}
-      renderItem={(item) => <RenderItem data={item} />}
+      renderItem={(item) => <RenderItem data={item} navigation={navigation} />}
       sliderWidth={width}
       itemWidth={ITEM_WIDTH}
     />
   )
 }
 
-const RenderItem = ({ data }) => {
+const RenderItem = ({ data, navigation }) => {
   const [genres, setGenres] = useState(null)
-  const { title, poster_path, genre_ids } = data.item //eslint-disable-line
+  const { id, title, poster_path, genre_ids } = data.item //eslint-disable-line
   const imageUrl = `${BASE_PATH_IMG}/w500${poster_path}` //eslint-disable-line
 
   useEffect(() => {
@@ -33,8 +33,12 @@ const RenderItem = ({ data }) => {
     })
   }, [])
 
+  const onNavigation = () => {
+    navigation.navigate('movie', { id })
+  }
+
   return (
-    <TouchableWithoutFeedback onPress={() => console.log('hola')}>
+    <TouchableWithoutFeedback onPress={onNavigation}>
       <View style={styles.card}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
         <Title style={styles.title}>{title}</Title>

@@ -1,4 +1,7 @@
+*.env
 .env
+.env.local
+.local
 .vscode
 package-lock.json
 yarn.lock
