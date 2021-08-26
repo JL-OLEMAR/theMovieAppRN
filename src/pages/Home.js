@@ -5,6 +5,7 @@ import { map } from 'lodash'
 
 import { getNewsMoviesApi, getAllGenresApi, getGenreMoviesApi } from '../api/movies'
 import { Carousel } from '../components/Carousel'
+import { CarouselMulti } from '../components/CarouselMulti'
 
 export const Home = ({ navigation }) => {
   const [newMovies, setNewMovies] = useState(null)
@@ -70,6 +71,11 @@ export const Home = ({ navigation }) => {
             </Text>
           ))}
         </ScrollView>
+
+        {genreMovies && (
+          <CarouselMulti data={genreMovies} navigation={navigation} />
+        )}
+
       </View>
     </ScrollView>
   )
