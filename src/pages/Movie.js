@@ -9,8 +9,8 @@ import { getMovieByIdApi } from '../api/movies'
 import usePreferences from '../hooks/usePreferences'
 import { ModalVideo } from '../components/ModalVideo'
 import { BASE_PATH_IMG } from '../utils/constants'
-import starDark from '../assets/png/starDark.png'
-import starLight from '../assets/png/starLight.png'
+import starDarkImg from '../assets/png/starDark.png'
+import starLightImg from '../assets/png/starLight.png'
 
 export const Movie = ({ navigation, route }) => {
   const { id } = route.params
@@ -25,23 +25,22 @@ export const Movie = ({ navigation, route }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTransparent: true,
       headerLeft: () => (
-        <View style={styles.iconBut}>
+        <View style={{ left: 15, borderRadius: 100 }}>
           <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8}>
-            <Icon name='arrow-back-outline' size={29} color='#fff' />
+            <Icon name='arrow-back-outline' size={33} color='#fff' />
           </TouchableOpacity>
         </View>
       ),
       headerRight: () => (
-        <View style={styles.iconBut}>
+        <View style={{ right: 15, borderRadius: 100 }}>
           <TouchableOpacity onPress={() => navigation.navigate('search')} activeOpacity={0.8}>
-            <Icon name='search-outline' size={29} color='#fff' />
+            <Icon name='search-outline' size={33} color='#fff' />
           </TouchableOpacity>
         </View>
       )
     })
-  }, [])
+  }, [navigation])
 
   if (!movie) return null
 
@@ -109,7 +108,7 @@ const MovieRating = ({ voteCount, voteAverage }) => {
     <View style={styles.containerRating}>
       <Rating
         type='custom'
-        ratingImage={theme === 'dark' ? starDark : starLight}
+        ratingImage={theme === 'dark' ? starDarkImg : starLightImg}
         ratingColor='#ffc205'
         ratingBackgroundColor={theme === 'dark' ? '#192734' : '#f0f0f0'}
         startingValue={media}
@@ -123,10 +122,6 @@ const MovieRating = ({ voteCount, voteAverage }) => {
 }
 
 const styles = StyleSheet.create({
-  iconBut: {
-    marginHorizontal: 10,
-    zIndex: 2
-  },
   containerPoster: {
     shadowColor: '#000',
     shadowOffset: {
@@ -134,8 +129,7 @@ const styles = StyleSheet.create({
       height: 10
     },
     shadowOpacity: 1,
-    textShadowRadius: 10,
-    zIndex: -1
+    textShadowRadius: 10
   },
   poster: {
     width: '100%',
@@ -148,7 +142,8 @@ const styles = StyleSheet.create({
     marginRight: 30,
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    borderRadius: 100
   },
   play: {
     width: 60,

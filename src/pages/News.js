@@ -6,21 +6,21 @@ export const News = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <View style={{ left: 10 }}>
+        <View style={{ left: 15, borderRadius: 100 }}>
           <TouchableOpacity onPress={() => navigation.toggleDrawer()} activeOpacity={0.8}>
-            <Icon name='menu-outline' size={29} color='#fff' />
+            <Icon name='menu-outline' size={33} color='#fff' />
           </TouchableOpacity>
         </View>
       ),
       headerRight: () => (
-        <View style={{ right: 10 }}>
+        <View style={{ right: 15, borderRadius: 100 }}>
           <TouchableOpacity onPress={() => navigation.navigate('search')} activeOpacity={0.8}>
-            <Icon name='search-outline' size={29} color='#fff' />
+            <Icon name='search-outline' size={33} color='#fff' />
           </TouchableOpacity>
         </View>
       )
     })
-  }, [])
+  }, [navigation])
 
   return (
     <View style={styles.container}>

@@ -77,3 +77,15 @@ export const getVideoMovieApi = (idMovie) => {
       return result
     })
 }
+
+export const getPopularMoviesApi = (page = 1) => {
+  const url = `${API_HOST}/movie/popular?api_key=${API_KEY}&language=${LANG}&page=${page}`
+
+  return fetch(url) //eslint-disable-line
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      return result
+    })
+}
