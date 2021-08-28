@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, View, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native'
 import { Rating } from 'react-native-ratings'
 import { Title, Text } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -23,31 +23,12 @@ export const Movie = ({ navigation, route }) => {
     })
   }, [])
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <View style={{ left: 15, borderRadius: 100 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8}>
-            <Icon name='arrow-back-outline' size={33} color='#fff' />
-          </TouchableOpacity>
-        </View>
-      ),
-      headerRight: () => (
-        <View style={{ right: 15, borderRadius: 100 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('search')} activeOpacity={0.8}>
-            <Icon name='search-outline' size={33} color='#fff' />
-          </TouchableOpacity>
-        </View>
-      )
-    })
-  }, [navigation])
-
   if (!movie) return null
 
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MovieImage posterPath={movie.poster_path} />
+        <MovieImage posterPath={movie.poster_path} navigation={navigation} />
         <MovieTrailer showVideo={showVideo} setShowVideo={setShowVideo} />
         <MovieTitle movie={movie} />
         <MovieRating voteCount={movie.vote_count} voteAverage={movie.vote_average} />
@@ -60,14 +41,36 @@ export const Movie = ({ navigation, route }) => {
     </>
   )
 }
-const MovieImage = ({ posterPath }) => {
+const MovieImage = ({ posterPath, navigation }) => {
   return (
-    <View style={styles.containerPoster}>
-      <Image
-        style={styles.poster}
-        source={{ uri: `${BASE_PATH_IMG}/w500${posterPath}` }}
-      />
-    </View>
+    <SafeAreaView>
+      <View style={styles.iconsContainer}>
+        <View style={[styles.icon, { left: 8 }]}>
+          <Icon
+            name='arrow-back'
+            size={30}
+            color='#fff'
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+
+        <View style={[styles.icon, { right: 8 }]}>
+          <Icon
+            name='search'
+            size={30}
+            color='#fff'
+            onPress={() => navigation.navigate('search')}
+          />
+        </View>
+      </View>
+
+      <View style={styles.containerPoster}>
+        <Image
+          style={styles.poster}
+          source={{ uri: `${BASE_PATH_IMG}/w500${posterPath}` }}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
 
@@ -76,7 +79,7 @@ const MovieTrailer = ({ showVideo, setShowVideo }) => {
     <View style={styles.containerPlay}>
       <TouchableOpacity onPress={() => { setShowVideo(!showVideo) }} activeOpacity={0.8}>
         <View style={styles.play}>
-          <Icon name='play-circle-outline' size={60} color='#000' />
+          <Icon name='play-outline' size={40} color='#fff' />
         </View>
       </TouchableOpacity>
     </View>
@@ -122,6 +125,20 @@ const MovieRating = ({ voteCount, voteAverage }) => {
 }
 
 const styles = StyleSheet.create({
+  iconsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    position: 'absolute',
+    zIndex: 1
+  },
+  icon: {
+    width: 40,
+    top: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100
+  },
   containerPoster: {
     shadowColor: '#000',
     shadowOffset: {
@@ -138,18 +155,20 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30
   },
   containerPlay: {
-    marginTop: -40,
-    marginRight: 30,
     alignItems: 'flex-end',
+    backgroundColor: 'transparent',
+    borderRadius: 100,
     justifyContent: 'flex-end',
-    overflow: 'hidden',
-    borderRadius: 100
+    marginRight: 30,
+    marginTop: -40
   },
   play: {
-    width: 60,
+    alignItems: 'center',
+    backgroundColor: 'red',
+    borderRadius: 100,
     height: 61,
-    backgroundColor: '#fff',
-    borderRadius: 100
+    justifyContent: 'center',
+    width: 60
   },
 
   containerInfo: {

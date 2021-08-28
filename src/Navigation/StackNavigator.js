@@ -20,7 +20,7 @@ export const StackNavigator = () => {
       <Stack.Screen
         name='movie'
         component={Movie}
-        options={{ title: '' }}
+        options={{ title: '', headerTransparent: true }}
       />
       <Stack.Screen
         name='news'
@@ -35,7 +35,7 @@ export const StackNavigator = () => {
       <Stack.Screen
         name='search'
         component={Search}
-        options={{ title: '' }}
+        options={{ title: '', headerTransparent: true }}
       />
     </Stack.Navigator>
   )

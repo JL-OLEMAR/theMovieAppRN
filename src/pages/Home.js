@@ -35,16 +35,16 @@ export const Home = ({ navigation }) => {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <View style={{ left: 15, borderRadius: 100 }}>
+        <View style={[styles.icon, { left: 10 }]}>
           <TouchableOpacity onPress={() => navigation.toggleDrawer()} activeOpacity={0.8}>
-            <Icon name='menu-outline' size={33} color='#fff' />
+            <Icon name='menu-outline' size={30} color='#fff' />
           </TouchableOpacity>
         </View>
       ),
       headerRight: () => (
-        <View style={{ right: 15, borderRadius: 100 }}>
+        <View style={[styles.icon, { right: 10 }]}>
           <TouchableOpacity onPress={() => navigation.navigate('search')} activeOpacity={0.8}>
-            <Icon name='search-outline' size={33} color='#fff' />
+            <Icon name='search-outline' size={30} color='#fff' />
           </TouchableOpacity>
         </View>
       )
@@ -95,6 +95,11 @@ export const Home = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    alignItems: 'center',
+    borderRadius: 100,
+    width: 50
+  },
   news: {
     marginVertical: 10
   },
