@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
       height: 10
     },
     shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 9
+    shadowRadius: 10
   },
   image: {
     width: '100%',

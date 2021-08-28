@@ -53,3 +53,27 @@ export const getGenreMoviesApi = (idGenre) => {
       return result
     })
 }
+
+export const getMovieByIdApi = (idMovie) => {
+  const url = `${API_HOST}/movie/${idMovie}?api_key=${API_KEY}&language=${LANG}`
+
+  return fetch(url) //eslint-disable-line
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      return result
+    })
+}
+
+export const getVideoMovieApi = (idMovie) => {
+  const url = `${API_HOST}/movie/${idMovie}/videos?api_key=${API_KEY}&language=${LANG}`
+
+  return fetch(url) //eslint-disable-line
+    .then((response) => {
+      return response.json()
+    })
+    .then((result) => {
+      return result
+    })
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, View, Text } from 'react-native'
-import { IconButton, Title } from 'react-native-paper'
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { Title } from 'react-native-paper'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { map } from 'lodash'
 
 import { getNewsMoviesApi, getAllGenresApi, getGenreMoviesApi } from '../api/movies'
@@ -33,8 +34,20 @@ export const Home = ({ navigation }) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <IconButton icon='menu' onPress={() => navigation.toggleDrawer()} />,
-      headerRight: () => <IconButton icon='magnify' onPress={() => navigation.navigate('search')} />
+      headerLeft: () => (
+        <View style={{ left: 10 }}>
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()} activeOpacity={0.8}>
+            <Icon name='menu-outline' size={29} color='#fff' />
+          </TouchableOpacity>
+        </View>
+      ),
+      headerRight: () => (
+        <View style={{ right: 10 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('search')} activeOpacity={0.8}>
+            <Icon name='search-outline' size={29} color='#fff' />
+          </TouchableOpacity>
+        </View>
+      )
     })
   }, [])
 
